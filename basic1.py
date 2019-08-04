@@ -164,3 +164,29 @@ df.grade = df.grade.apply(pass_or_fail)
 df
 
 #%%
+data_list = [{'yyyy-mm-dd':'2000-06-27'},{'yyyy-mm-dd':'2002-09-24'},{'yyyy-mm-dd':'2005-12-20'}]
+df = pd.DataFrame(data_list, columns=['yyyy-mm-dd'])
+df
+
+#%%
+def extract_year(row):
+    return row.split('-')[0]
+df['year'] = df['yyyy-mm-dd'].apply(extract_year)
+df
+
+#%%
+def extract_year(year, current_year):
+    return current_year - int(year)
+
+#%%
+df['age'] = df['year'].apply(extract_year,current_year=2018)
+df
+#%%
+def get_introduce(age,prefix,suffix):
+    return prefix + str(age) + suffix
+
+#%%
+df['introduce'] = df['age'].apply(get_introduce,prefix="I am",suffix=" years old")
+df
+
+#%%
